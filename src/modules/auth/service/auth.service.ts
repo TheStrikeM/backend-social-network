@@ -74,8 +74,13 @@ export default class AuthService {
     if (candidate) {
       throw new Error('Данный пользователь уже существует');
     }
+    const registredIn = new Date();
 
     const encryptedPassword = this.cryptoService.encrypt(user.password);
-    return this.userRepository.create({ ...user, password: encryptedPassword });
+    return this.userRepository.create({
+      ...user,
+      password: encryptedPassword,
+      registredIn,
+    });
   }
 }
