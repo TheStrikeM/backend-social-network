@@ -11,6 +11,7 @@ import JwtGuard from './guard/jwt.guard';
 import LocalGuard from './guard/local.guard';
 import { RolesGuard } from './guard/roles.guard';
 import UserModule from '../user/user.module';
+import AuthController from "./controller/auth.controller";
 
 @Module({
   imports: [
@@ -35,7 +36,7 @@ import UserModule from '../user/user.module';
     LocalGuard,
     RolesGuard,
   ],
-  controllers: [],
+  controllers: [AuthController],
   exports: [],
 })
 export default class AuthModule {}
