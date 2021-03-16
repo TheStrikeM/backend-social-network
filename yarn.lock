@@ -624,6 +624,14 @@
     "tslib" "2.1.0"
     "uuid" "8.3.2"
 
+"@nestjs/jwt@^7.2.0":
+  "integrity" "sha512-uOTqYmWNpu+oS/MrdYjrWXtKGV4HkCYmAEVEFPP/KfiP/7K6fNy+boLllE6cnqESAXh9u0CLa1noAAavs+LHEQ=="
+  "resolved" "https://registry.npmjs.org/@nestjs/jwt/-/jwt-7.2.0.tgz"
+  "version" "7.2.0"
+  dependencies:
+    "@types/jsonwebtoken" "8.5.0"
+    "jsonwebtoken" "8.5.1"
+
 "@nestjs/mongoose@^7.2.4":
   "integrity" "sha512-NTE/IwijFUEJytPHLoHRYe0X5p16W1Awf8tm6I3mWsIUuBnSDfMyN0fy30uVaM/exYvCkMwEsAVpeSeKVPMHxg=="
   "resolved" "https://registry.npmjs.org/@nestjs/mongoose/-/mongoose-7.2.4.tgz"
@@ -869,6 +877,13 @@
   "integrity" "sha1-7ihweulOEdK4J7y+UnC86n8+ce4="
   "resolved" "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz"
   "version" "0.0.29"
+
+"@types/jsonwebtoken@8.5.0":
+  "integrity" "sha512-9bVao7LvyorRGZCw0VmH/dr7Og+NdjYSsKAxB43OQoComFbBgsEpoR9JW6+qSq/ogwVBg8GI2MfAlk4SYI4OLg=="
+  "resolved" "https://registry.npmjs.org/@types/jsonwebtoken/-/jsonwebtoken-8.5.0.tgz"
+  "version" "8.5.0"
+  dependencies:
+    "@types/node" "*"
 
 "@types/mime@^1":
   "integrity" "sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw=="
@@ -3926,7 +3941,7 @@
   optionalDependencies:
     "graceful-fs" "^4.1.6"
 
-"jsonwebtoken@^8.2.0":
+"jsonwebtoken@^8.2.0", "jsonwebtoken@8.5.1":
   "integrity" "sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w=="
   "resolved" "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz"
   "version" "8.5.1"
