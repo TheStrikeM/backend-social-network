@@ -7,6 +7,18 @@ export enum Role {
   MEDIA = 'MEDIA',
 }
 
+export type UserLoginDto = {
+  username: string;
+  password: string;
+};
+
+export type UserRegisterDto = {
+  username: string;
+  email: string;
+  full_name: string;
+  password: string;
+};
+
 export type UserDto = {
   readonly _id?: number;
   readonly email?: string;

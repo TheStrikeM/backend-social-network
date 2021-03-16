@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import UserRepository from '../../user/service/user.repository';
+import CryptoService from './crypto.service';
 
 @Injectable()
 export default class AuthService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly cryptoService: CryptoService,
+  ) {}
 
-  getSex(): any {
-    return { message: 'Привет!' };
-  }
+  async validateUser(username: string, pass: string)
 }
