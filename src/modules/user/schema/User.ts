@@ -7,7 +7,7 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
-  @Prop({ type: String, min: 5, max: 35, required: true, unique: true })
+  @Prop({ type: String, min: 5, max: 45, required: true, unique: true })
   email: string;
 
   @Prop({ type: Number, min: 5, max: 35, required: true })
@@ -19,7 +19,7 @@ export class User {
   @Prop({ type: String, min: 5, max: 105 })
   desc: string;
 
-  @Prop({ type: String, min: 5, max: 105, required: true })
+  @Prop({ type: String, min: 5, max: 205, required: true })
   password: string;
 
   @Prop({ type: String, min: 5, max: 205, default: 'Нет' })

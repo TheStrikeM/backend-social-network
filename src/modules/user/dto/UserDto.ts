@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongoose';
+import { MaxLength, MinLength } from 'class-validator';
 
 export enum Role {
   USER = 'USER',
@@ -19,6 +20,44 @@ export type UserRegisterDto = {
   full_name: string;
   password: string;
 };
+
+export class UserVerifiedLoginDto {
+  @MinLength(5, {
+    message: 'Ваш юзернейм должен состоять из не менее 5 символов',
+  })
+  @MaxLength(35, {
+    message: 'Ваш юзернейм должен состоять из не менее 35 символов',
+  })
+  username: string;
+
+  @MinLength(5, {
+    message: 'Ваш пароль должен состоять из не менее 5 символов',
+  })
+  @MaxLength(25, {
+    message: 'Ваш пароль должен состоять из не менее 25 символов',
+  })
+  password: string;
+}
+
+export class UserVerifiedRegisterDto extends UserVerifiedLoginDto {
+  @MinLength(5, {
+    message: 'Ваше имя должен состоять из не менее 5 символов',
+  })
+  @MaxLength(35, {
+    message: 'Ваше имя и фамилия должен состоять из не менее 35 символов',
+  })
+  full_name: string;
+
+  @MinLength(5, {
+    message: 'Ваш эмеил должен состоять из не менее 5 символов',
+  })
+  @MaxLength(45, {
+    message: 'Ваш эмеил должен состоять из не менее 45 символов',
+  })
+  email: string;
+
+  role: Role = Role.USER;
+}
 
 export type UserDto = {
   readonly _id?: number;
