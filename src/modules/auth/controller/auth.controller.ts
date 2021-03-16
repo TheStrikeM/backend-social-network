@@ -32,7 +32,7 @@ export default class AuthController {
     return this.authService.register(dto);
   }
 
-  @hasRoles(Role.USER)
+  @hasRoles(Role.USER, Role.ADMIN)
   @UseGuards(JwtGuard, RolesGuard)
   @Get('profile')
   getProfile(@Request() req) {
