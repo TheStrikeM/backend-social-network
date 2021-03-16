@@ -37,6 +37,14 @@ export class UserVerifiedLoginDto {
     message: 'Ваш пароль должен состоять из не менее 25 символов',
   })
   password: string;
+
+  @MinLength(5, {
+    message: 'Ваш эмеил должен состоять из не менее 5 символов',
+  })
+  @MaxLength(45, {
+    message: 'Ваш эмеил должен состоять из не менее 45 символов',
+  })
+  email: string;
 }
 
 export class UserVerifiedRegisterDto extends UserVerifiedLoginDto {
@@ -47,14 +55,6 @@ export class UserVerifiedRegisterDto extends UserVerifiedLoginDto {
     message: 'Ваше имя и фамилия должен состоять из не менее 35 символов',
   })
   full_name: string;
-
-  @MinLength(5, {
-    message: 'Ваш эмеил должен состоять из не менее 5 символов',
-  })
-  @MaxLength(45, {
-    message: 'Ваш эмеил должен состоять из не менее 45 символов',
-  })
-  email: string;
 
   role: Role = Role.USER;
 }
