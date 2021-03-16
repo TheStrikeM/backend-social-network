@@ -46,8 +46,8 @@ export class User {
   @Prop({ type: Boolean, default: false })
   online: boolean;
 
-  @Prop({ type: String, enum: Role })
-  role: string;
+  @Prop({ type: String, enum: Role, default: 'USER' })
+  role: Role;
 
   @Prop({ type: String })
   website: string;
