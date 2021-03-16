@@ -44,4 +44,54 @@ export default class UserRepository {
       photos: [...user.photos, fileName],
     });
   }
+
+  async subscribeTo(
+    idSender: ObjectId,
+    idRecipient: ObjectId,
+  ): Promise<User[] | { message: string }> {
+    const sender = await this.userModel.findById(idSender);
+    const recipient = await this.userModel.findById(idRecipient);
+    if (!sender) {
+      return { message: 'Потенциальный подписчик не найден' };
+    }
+    if (!recipient) {
+      return { message: 'Человек на которого нужно подписаться не был найден' };
+    }
+
+    const updSender = await this.userModel.findByIdAndUpdate(idSender, {
+      ...sender,
+      subscriptions: [...sender.subscriptions, recipient._id],
+    });
+    const updRecipient = await this.userModel.findByIdAndUpdate(idRecipient, {
+      ...recipient,
+      subscribers: [...recipient.subscribers, sender._id],
+    });
+
+    return [updSender, updRecipient];
+  }
+
+  async unsubscribeTo(
+    idSender: ObjectId,
+    idRecipient: ObjectId,
+  ): Promise<User[] | { message: string }> {
+    const sender = await this.userModel.findById(idSender);
+    const recipient = await this.userModel.findById(idRecipient);
+    if (!sender) {
+      return { message: 'Потенциальный подписчик не найден' };
+    }
+    if (!recipient) {
+      return { message: 'Человек на которого нужно подписаться не был найден' };
+    }
+
+    const updSender = await this.userModel.findByIdAndUpdate(idSender, {
+      ...sender,
+      subscriptions: sender.subscriptions.filter((el) => el !== recipient._id),
+    });
+    const updRecipient = await this.userModel.findByIdAndUpdate(idRecipient, {
+      ...recipient,
+      subscribers: recipient.subscribers.filter((el) => el !== sender._id),
+    });
+
+    return [updSender, updRecipient];
+  }
 }
