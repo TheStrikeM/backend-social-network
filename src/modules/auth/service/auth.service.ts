@@ -48,6 +48,10 @@ export default class AuthService {
     const candidate: User = await this.userRepository.findByUsername(
       dto.username,
     );
+    if (!candidate) {
+      return null;
+    }
+
     const decryptedPassword = this.cryptoService.decrypt(candidate.password);
     if (candidate && decryptedPassword === dto.password) {
       const { password, ...secureUser } = candidate;
