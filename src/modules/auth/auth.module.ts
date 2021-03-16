@@ -7,6 +7,9 @@ import JwtStrategy from './strategy/jwt.strategy';
 import LocalStrategy from './strategy/local.strategy';
 import CryptoService from './service/crypto.service';
 import AuthService from './service/auth.service';
+import JwtGuard from './guard/jwt.guard';
+import LocalGuard from './guard/local.guard';
+import { RolesGuard } from './guard/roles.guard';
 
 @Module({
   imports: [
@@ -21,7 +24,15 @@ import AuthService from './service/auth.service';
       inject: [ConfigService],
     }),
   ],
-  providers: [JwtStrategy, LocalStrategy, CryptoService, AuthService],
+  providers: [
+    JwtStrategy,
+    LocalStrategy,
+    CryptoService,
+    AuthService,
+    JwtGuard,
+    LocalGuard,
+    RolesGuard,
+  ],
   controllers: [],
   exports: [UserRepository],
 })
