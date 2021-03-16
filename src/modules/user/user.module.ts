@@ -9,6 +9,6 @@ import UserRepository from './service/user.repository';
   ],
   providers: [UserRepository],
   controllers: [],
-  exports: [UserRepository]
+  exports: [UserRepository],
 })
 export default class UserModule {}
