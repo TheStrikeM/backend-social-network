@@ -10,11 +10,13 @@ import AuthService from './service/auth.service';
 import JwtGuard from './guard/jwt.guard';
 import LocalGuard from './guard/local.guard';
 import { RolesGuard } from './guard/roles.guard';
+import UserModule from '../user/user.module';
 
 @Module({
   imports: [
     PassportModule,
     ConfigModule,
+    UserModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -34,6 +36,6 @@ import { RolesGuard } from './guard/roles.guard';
     RolesGuard,
   ],
   controllers: [],
-  exports: [UserRepository],
+  exports: [],
 })
 export default class AuthModule {}
