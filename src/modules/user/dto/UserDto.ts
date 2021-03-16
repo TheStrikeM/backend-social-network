@@ -14,6 +14,7 @@ export type UserLoginDto = {
 
 export type UserRegisterDto = {
   username: string;
+  role?: Role;
   email: string;
   full_name: string;
   password: string;
