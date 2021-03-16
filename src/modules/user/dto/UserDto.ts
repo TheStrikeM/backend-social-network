@@ -10,6 +10,7 @@ export enum Role {
 export type UserDto = {
   readonly _id?: number;
   readonly email?: string;
+  readonly username?: string;
   readonly full_name?: string;
   readonly desc?: string;
   readonly password?: string;

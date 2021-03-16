@@ -10,7 +10,10 @@ export class User {
   email: string;
 
   @Prop({ type: Number, min: 5, max: 35, required: true })
-  full_name: number;
+  username: string;
+
+  @Prop({ type: Number, min: 5, max: 35, required: true })
+  full_name: string;
 
   @Prop({ type: String, min: 5, max: 105 })
   desc: string;

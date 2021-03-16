@@ -4,7 +4,5 @@ import { Injectable } from '@nestjs/common';
 export default class UserRepository {
   constructor() {}
 
-  getSex(): any {
-    return { message: 'Привет!' };
-  }
+  findBy
 }
