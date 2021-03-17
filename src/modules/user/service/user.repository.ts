@@ -85,14 +85,18 @@ export default class UserRepository {
       return { message: 'Человек на которого нужно подписаться не был найден' };
     }
 
-    const updSender = await this.userModel.findByIdAndUpdate(idSender, {
-      ...sender,
-      subscriptions: [...sender.subscriptions, recipient._id],
-    });
-    const updRecipient = await this.userModel.findByIdAndUpdate(idRecipient, {
-      ...recipient,
-      subscribers: [...recipient.subscribers, sender._id],
-    });
+    const updSender = await this.userModel.findByIdAndUpdate(
+      { _id: idSender },
+      {
+        subscriptions: [...sender.subscriptions, recipient._id],
+      },
+    );
+    const updRecipient = await this.userModel.findByIdAndUpdate(
+      { _id: idRecipient },
+      {
+        subscribers: [...recipient.subscribers, sender._id],
+      },
+    );
 
     return [updSender, updRecipient];
   }

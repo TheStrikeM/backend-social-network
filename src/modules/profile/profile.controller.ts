@@ -1,6 +1,14 @@
-import { Controller, Get, Param, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import JwtGuard from '../auth/guard/jwt.guard';
 import ProfileService from './profile.service';
+import { ObjectId } from 'mongoose';
 
 @Controller('profile')
 export default class ProfileController {
@@ -17,7 +25,12 @@ export default class ProfileController {
     return this.profileService.getProfile(username);
   }
 
-  @Get()
+  @Get('subscribeTo/:id')
   @UseGuards(JwtGuard)
-  async subscribeTo(@Request() req) {}
+  async subscribeTo(
+    @Request() req,
+    @Param('id') recipientId: ObjectId,
+  ) {
+    return this.profileService.subscribeTo(req.user._id, recipientId);
+  }
 }

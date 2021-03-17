@@ -27,6 +27,7 @@ export default class ProfileService {
   }
 
   async subscribeTo(idSender: ObjectId, idRecipient: ObjectId) {
+    console.log(idSender, idRecipient)
     return this.userRepository.subscribeTo(idSender, idRecipient);
   }
 
