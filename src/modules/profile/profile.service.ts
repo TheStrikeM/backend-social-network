@@ -32,11 +32,33 @@ export default class ProfileService {
     if (!candidate) {
       return { message: 'Пользователь не найден' };
     }
+
+    if (candidate.avatar.length > 0) {
+      this.fileService.deleteFile(
+        candidate.username,
+        'avatar',
+        candidate.avatar,
+      );
+    }
+
     const avatar = this.fileService.createFile(
       candidate.username,
       'avatar',
       file,
     );
     return this.userRepository.setAvatar(id, avatar);
+  }
+
+  async addPhoto(id: ObjectId, file) {
+    const candidate = await this.userRepository.findById(id);
+    if (!candidate) {
+      return { message: 'Пользователь не найден' };
+    }
+    const photo = this.fileService.createFile(
+      candidate.username,
+      'photo',
+      file,
+    );
+    return this.userRepository.addPhoto(id, photo);
   }
 }
