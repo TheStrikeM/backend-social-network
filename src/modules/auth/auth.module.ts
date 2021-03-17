@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import UserRepository from '../user/service/user.repository';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
@@ -11,7 +10,7 @@ import JwtGuard from './guard/jwt.guard';
 import LocalGuard from './guard/local.guard';
 import { RolesGuard } from './guard/roles.guard';
 import UserModule from '../user/user.module';
-import AuthController from "./controller/auth.controller";
+import AuthController from './controller/auth.controller';
 
 @Module({
   imports: [

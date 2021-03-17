@@ -10,8 +10,16 @@ export default class ProfileService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async getProfile(id: ObjectId) {
+  async myProfile(id: ObjectId) {
     const candidate = await this.userRepository.findById(id);
+    if (!candidate) {
+      return { message: 'Пользователь не найден' };
+    }
+    return candidate;
+  }
+
+  async getProfile(username: string) {
+    const candidate = await this.userRepository.findByUsername(username);
     if (!candidate) {
       return { message: 'Пользователь не найден' };
     }

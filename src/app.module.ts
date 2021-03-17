@@ -6,6 +6,7 @@ import AuthModule from './modules/auth/auth.module';
 import FileModule from './modules/file/file.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
+import ProfileModule from './modules/profile/profile.module';
 
 const dbURI =
   'mongodb+srv://admin:admin@cluster0.ydv37.mongodb.net/social-network?retryWrites=true&w=majority';
@@ -18,6 +19,7 @@ const dbURI =
     UserModule,
     AuthModule,
     FileModule,
+    ProfileModule,
   ],
 })
 export class AppModule {}
