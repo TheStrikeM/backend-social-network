@@ -25,10 +25,9 @@ export default class UserRepository {
   }
 
   async update(id: ObjectId, dto: User): Promise<User> {
-    const user: User = await this.userModel.findByIdAndUpdate(id, {
+    return this.userModel.findByIdAndUpdate(id, {
       ...dto,
     });
-    return user;
   }
 
   async setAvatar(id: ObjectId, fileName: string): Promise<UserOrMessage> {
