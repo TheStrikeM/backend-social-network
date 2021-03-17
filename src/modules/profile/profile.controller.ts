@@ -27,10 +27,13 @@ export default class ProfileController {
 
   @Get('subscribeTo/:id')
   @UseGuards(JwtGuard)
-  async subscribeTo(
-    @Request() req,
-    @Param('id') recipientId: ObjectId,
-  ) {
+  async subscribeTo(@Request() req, @Param('id') recipientId: ObjectId) {
     return this.profileService.subscribeTo(req.user._id, recipientId);
+  }
+
+  @Get('unsubscribeTo/:id')
+  @UseGuards(JwtGuard)
+  async unsubscribeTo(@Request() req, @Param('id') recipientId: ObjectId) {
+    return this.profileService.unsubscribeTo(req.user._id, recipientId);
   }
 }

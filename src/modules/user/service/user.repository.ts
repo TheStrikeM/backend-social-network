@@ -3,8 +3,13 @@ import { User, UserDocument } from '../schema/User';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { UserDto } from '../dto/UserDto';
+import { start } from 'repl';
 
 export type UserOrMessage = User | { message: string };
+export type AdvancedRepositoryType<M> = {
+  errors: boolean;
+  message: M;
+};
 
 @Injectable()
 export default class UserRepository {
@@ -75,30 +80,56 @@ export default class UserRepository {
   async subscribeTo(
     idSender: ObjectId,
     idRecipient: ObjectId,
-  ): Promise<User[] | { message: string }> {
+  ): Promise<
+    AdvancedRepositoryType<User[]> | AdvancedRepositoryType<string[]>
+  > {
     const sender = await this.userModel.findById(idSender);
     const recipient = await this.userModel.findById(idRecipient);
+
+    type Continues = { start: boolean; message: string[] };
+    const continues: Continues = { start: true, message: [] };
+
     if (!sender) {
-      return { message: 'Потенциальный подписчик не найден' };
+      continues.start = false;
+      continues.message.push('Потенциальный подписчик не найден');
     }
     if (!recipient) {
-      return { message: 'Человек на которого нужно подписаться не был найден' };
+      continues.start = false;
+      continues.message.push(
+        'Человек на которого нужно подписаться не был найден',
+      );
     }
 
-    const updSender = await this.userModel.findByIdAndUpdate(
-      { _id: idSender },
-      {
-        subscriptions: [...sender.subscriptions, recipient._id],
-      },
-    );
-    const updRecipient = await this.userModel.findByIdAndUpdate(
-      { _id: idRecipient },
-      {
-        subscribers: [...recipient.subscribers, sender._id],
-      },
-    );
+    recipient.subscribers.forEach((sub) => {
+      if (String(sub) === String(sender._id)) {
+        continues.start = false;
+        continues.message.push('Вы уже подписаны на этого человека');
+      }
+    });
 
-    return [updSender, updRecipient];
+    if (sender._id === recipient._id) {
+      continues.start = false;
+      continues.message.push('Вы не можете подписаться сами на себя');
+    }
+
+    if (continues.start) {
+      const updSender = await this.userModel.findByIdAndUpdate(
+        { _id: sender._id },
+        {
+          subscriptions: [...sender.subscriptions, recipient._id],
+        },
+      );
+      const updRecipient = await this.userModel.findByIdAndUpdate(
+        { _id: recipient._id },
+        {
+          subscribers: [...recipient.subscribers, sender._id],
+        },
+      );
+
+      return { errors: continues.start, message: [updSender, updRecipient] };
+    }
+
+    return { errors: continues.start, message: continues.message };
   }
 
   async unsubscribeTo(
@@ -114,14 +145,18 @@ export default class UserRepository {
       return { message: 'Человек на которого нужно подписаться не был найден' };
     }
 
-    const updSender = await this.userModel.findByIdAndUpdate(idSender, {
-      ...sender,
-      subscriptions: sender.subscriptions.filter((el) => el !== recipient._id),
-    });
-    const updRecipient = await this.userModel.findByIdAndUpdate(idRecipient, {
-      ...recipient,
-      subscribers: recipient.subscribers.filter((el) => el !== sender._id),
-    });
+    const updSender = await this.userModel.findByIdAndUpdate(
+      { _id: idSender },
+      {
+        // subscriptions: sender.subscriptions.filter((el) => el !== idRecipient),
+      },
+    );
+    const updRecipient = await this.userModel.findByIdAndUpdate(
+      { _id: idRecipient },
+      {
+        // subscribers: recipient.subscribers.filter((el) => el !== idSender),
+      },
+    );
 
     return [updSender, updRecipient];
   }
