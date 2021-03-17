@@ -22,7 +22,7 @@ export class User {
   @Prop({ type: String, min: 5, max: 205, required: true })
   password: string;
 
-  @Prop({ type: String, min: 5, max: 205, default: 'Нет' })
+  @Prop({ type: String, min: 5, max: 205, default: '' })
   avatar: string;
 
   @Prop([String])

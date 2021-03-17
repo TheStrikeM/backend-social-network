@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import FileService from '../file/file.service';
-import UserRepository, { UserOrMessage } from '../user/service/user.repository';
-import { User } from '../user/schema/User';
+import UserRepository from '../user/service/user.repository';
 import { ObjectId } from 'mongoose';
 
 @Injectable()
@@ -49,7 +48,23 @@ export default class ProfileService {
     return this.userRepository.setAvatar(id, avatar);
   }
 
-  async addPhoto(id: ObjectId, file) {
+  async removeAvatar(id: ObjectId, fileName) {
+    const candidate = await this.userRepository.findById(id);
+    if (!candidate) {
+      return { message: 'Пользователь не найден' };
+    }
+
+    if (candidate.avatar.length > 0) {
+      this.fileService.deleteFile(
+        candidate.username,
+        'avatar',
+        candidate.avatar,
+      );
+    }
+    return fileName
+  }
+
+  async addPhoto(id: ObjectId, fileName) {
     const candidate = await this.userRepository.findById(id);
     if (!candidate) {
       return { message: 'Пользователь не найден' };
@@ -57,8 +72,21 @@ export default class ProfileService {
     const photo = this.fileService.createFile(
       candidate.username,
       'photo',
-      file,
+      fileName,
     );
     return this.userRepository.addPhoto(id, photo);
+  }
+
+  async removePhoto(id: ObjectId, fileName) {
+    const candidate = await this.userRepository.findById(id);
+    if (!candidate) {
+      return { message: 'Пользователь не найден' };
+    }
+    const photo = this.fileService.deleteFile(
+      candidate.username,
+      'photo',
+      fileName,
+    );
+    return this.userRepository.removePhoto(id, photo);
   }
 }

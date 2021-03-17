@@ -39,6 +39,15 @@ export default class UserRepository {
     return this.userModel.findByIdAndUpdate(id, { ...user, avatar: fileName });
   }
 
+  async removeAvatar(id: ObjectId): Promise<UserOrMessage> {
+    const user: User = await this.userModel.findById(id);
+    if (!user) {
+      return { message: 'Пользователь не найден' };
+    }
+
+    return this.userModel.findByIdAndUpdate(id, { ...user, avatar: '' });
+  }
+
   async addPhoto(id: ObjectId, fileName: string): Promise<UserOrMessage> {
     const user: User = await this.userModel.findById(id);
     if (!user) {
@@ -48,6 +57,18 @@ export default class UserRepository {
     return this.userModel.findByIdAndUpdate(id, {
       ...user,
       photos: [...user.photos, fileName],
+    });
+  }
+
+  async removePhoto(id: ObjectId, fileName: string): Promise<UserOrMessage> {
+    const user: User = await this.userModel.findById(id);
+    if (!user) {
+      return { message: 'Пользователь не найден' };
+    }
+
+    return this.userModel.findByIdAndUpdate(id, {
+      ...user,
+      photos: [...user.photos.filter((photo) => photo !== fileName)],
     });
   }
 
