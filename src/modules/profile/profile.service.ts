@@ -96,6 +96,6 @@ export default class ProfileService {
       return { message: 'Пользователь не найден' };
     }
 
-    return this.userRepository.addPhoto(id, value);
+    return this.userRepository.setOnline(id, value);
   }
 }
