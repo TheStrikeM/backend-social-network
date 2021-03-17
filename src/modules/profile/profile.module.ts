@@ -7,10 +7,19 @@ import AuthModule from '../auth/auth.module';
 import SubscribeService from './service/subscribe.service';
 import PhotosService from './service/photos.service';
 import SubscribeController from './controller/subscribe.controller';
+import {
+  AvatarController,
+  PhotosController,
+} from './controller/photos.controller';
 
 @Module({
   imports: [FileModule, UserModule, AuthModule],
   providers: [ProfileService, SubscribeService, PhotosService],
-  controllers: [ProfileController, SubscribeController],
+  controllers: [
+    ProfileController,
+    SubscribeController,
+    PhotosController,
+    AvatarController,
+  ],
 })
 export default class ProfileModule {}

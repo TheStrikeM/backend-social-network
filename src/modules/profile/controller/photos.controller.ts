@@ -1,11 +1,13 @@
 import {
-    Controller, Delete,
-    Get,
-    Post,
-    Request,
-    UploadedFile,
-    UseGuards,
-    UseInterceptors,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Request,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import PhotosService from '../service/photos.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -15,9 +17,17 @@ import JwtGuard from '../../auth/guard/jwt.guard';
 export class PhotosController {
   constructor(private readonly photosService: PhotosService) {}
 
-  @Post('avatar')
-  getSex(): { message: string } {
-    return { message: 'Привет, детка!' };
+  @Post()
+  @UseGuards(JwtGuard)
+  @UseInterceptors(FileInterceptor('file'))
+  async setAvatar(@UploadedFile() file, @Request() req) {
+    return this.photosService.addPhoto(req.user, file);
+  }
+
+  @Delete(':fileName')
+  @UseGuards(JwtGuard)
+  async removeAvatar(@Request() req, @Param('fileName') fileName: string) {
+    return this.photosService.removePhoto(req.user, fileName);
   }
 }
 

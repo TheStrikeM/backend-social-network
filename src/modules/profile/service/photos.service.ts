@@ -37,11 +37,11 @@ export default class PhotosService {
     return this.photosRepository.removeAvatar(candidate._id);
   }
 
-  async addPhoto(candidate: UserDto, fileName) {
+  async addPhoto(candidate: UserDto, file) {
     const photo = this.fileService.createFile(
       candidate.username,
       'photo',
-      fileName,
+      file,
     );
     return this.photosRepository.addPhoto(candidate._id, photo);
   }
