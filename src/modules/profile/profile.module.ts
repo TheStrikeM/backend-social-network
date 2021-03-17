@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import ProfileService from './profile.service';
+import ProfileService from './service/profile.service';
 import ProfileController from './profile.controller';
 import FileModule from '../file/file.module';
 import UserModule from '../user/user.module';
