@@ -16,7 +16,7 @@ export default class UserRepository {
     return this.userModel.findOne({ username });
   }
 
-  async findById(id: ObjectId): Promise<UserOrMessage> {
+  async findById(id: ObjectId): Promise<User> {
     return this.userModel.findById(id);
   }
 
