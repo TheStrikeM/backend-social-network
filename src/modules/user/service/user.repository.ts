@@ -99,19 +99,16 @@ export default class UserRepository {
         'Человек на которого нужно подписаться не был найден',
       );
     }
-
     recipient.subscribers.forEach((sub) => {
       if (String(sub) === String(sender._id)) {
         continues.start = false;
         continues.message.push('Вы уже подписаны на этого человека');
       }
     });
-
     if (sender._id === recipient._id) {
       continues.start = false;
       continues.message.push('Вы не можете подписаться сами на себя');
     }
-
     if (continues.start) {
       const updSender = await this.userModel.findByIdAndUpdate(
         { _id: sender._id },
@@ -128,7 +125,6 @@ export default class UserRepository {
 
       return { errors: continues.start, message: [updSender, updRecipient] };
     }
-
     return { errors: continues.start, message: continues.message };
   }
 
