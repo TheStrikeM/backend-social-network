@@ -11,8 +11,6 @@ export default class ProfileService {
   constructor(
     private readonly fileService: FileService,
     private readonly userRepository: UserRepository,
-    private readonly subscribeRepository: SubscribeRepository,
-    private readonly photosRepository: PhotosRepository,
   ) {}
 
   async myProfile(id: ObjectId) {
@@ -33,5 +31,9 @@ export default class ProfileService {
 
   async setOnline(id: ObjectId, value: boolean) {
     return this.userRepository.setOnline(id, value);
+  }
+
+  async update(id: ObjectId, dto: UserDto) {
+    return this.userRepository.update(id, dto);
   }
 }

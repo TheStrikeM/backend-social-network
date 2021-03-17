@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import JwtGuard from '../../auth/guard/jwt.guard';
 import ProfileService from '../service/profile.service';
-import {UserDto} from "../../user/dto/UserDto";
+import { UserDto } from '../../user/dto/UserDto';
 
 @Controller('profile')
 export default class ProfileController {
@@ -27,6 +27,8 @@ export default class ProfileController {
   }
 
   @Put()
-  async update(@Body() dto: UserDto) {
-  };
+  @UseGuards(JwtGuard)
+  async update(@Body() dto: UserDto, @Request() req) {
+    return this.profileService.update(req.user._id, dto);
+  }
 }
