@@ -89,4 +89,13 @@ export default class ProfileService {
     );
     return this.userRepository.removePhoto(id, photo);
   }
+
+  async setOnline(id: ObjectId, value: boolean) {
+    const candidate = await this.userRepository.findById(id);
+    if (!candidate) {
+      return { message: 'Пользователь не найден' };
+    }
+
+    return this.userRepository.addPhoto(id, value);
+  }
 }
