@@ -34,6 +34,14 @@ export default class ProfileService {
     return this.userRepository.unsubscribeTo(idSender, idRecipient);
   }
 
+  async removeAllSubsribers(id: ObjectId) {
+    return this.userRepository.removeAllSubscribers(id);
+  }
+
+  async removeAllSubscriptions(id: ObjectId) {
+    return this.userRepository.removeAllSubscriptions(id);
+  }
+
   async setAvatar(id: ObjectId, file) {
     const candidate = await this.userRepository.findById(id);
     if (!candidate) {

@@ -77,6 +77,14 @@ export default class UserRepository {
     });
   }
 
+  async removeAllSubscribers(id: ObjectId): Promise<User> {
+    return this.userModel.findByIdAndUpdate({ _id: id }, { subscribers: [] });
+  }
+
+  async removeAllSubscriptions(id: ObjectId): Promise<User> {
+    return this.userModel.findByIdAndUpdate({ _id: id }, { subscriptions: [] });
+  }
+
   async subscribeTo(
     idSender: ObjectId,
     idRecipient: ObjectId,
