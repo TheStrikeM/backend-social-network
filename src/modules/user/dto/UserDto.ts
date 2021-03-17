@@ -65,7 +65,7 @@ export class UserVerifiedRegisterDto extends UserVerifiedLoginDto {
 }
 
 export type UserDto = {
-  readonly _id?: number;
+  readonly _id?: ObjectId;
   readonly email?: string;
   readonly username?: string;
   readonly full_name?: string;

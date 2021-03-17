@@ -29,10 +29,8 @@ export default class UserRepository {
     return this.userModel.create({ ...dto });
   }
 
-  async update(id: ObjectId, dto: User): Promise<User> {
-    return this.userModel.findByIdAndUpdate(id, {
-      ...dto,
-    });
+  async update(id: ObjectId, updatedValue: any): Promise<User> {
+    return this.userModel.findByIdAndUpdate({ _id: id }, updatedValue);
   }
 
   async setOnline(id: ObjectId, value: boolean) {

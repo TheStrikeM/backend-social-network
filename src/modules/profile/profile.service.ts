@@ -3,6 +3,8 @@ import FileService from '../file/file.service';
 import UserRepository from '../user/service/user.repository';
 import { ObjectId } from 'mongoose';
 import SubscribeRepository from '../user/service/utils/subscribe.repository';
+import PhotosRepository from '../user/service/utils/photos.repository';
+import {UserDto} from "../user/dto/UserDto";
 
 @Injectable()
 export default class ProfileService {
@@ -10,6 +12,7 @@ export default class ProfileService {
     private readonly fileService: FileService,
     private readonly userRepository: UserRepository,
     private readonly subscribeRepository: SubscribeRepository,
+    private readonly photosRepository: PhotosRepository,
   ) {}
 
   async myProfile(id: ObjectId) {
@@ -44,12 +47,7 @@ export default class ProfileService {
     return this.subscribeRepository.removeAllSubscriptions(id);
   }
 
-  async setAvatar(id: ObjectId, file) {
-    const candidate = await this.userRepository.findById(id);
-    if (!candidate) {
-      return { message: 'Пользователь не найден' };
-    }
-
+  async setAvatar(candidate: UserDto, file) {
     if (candidate.avatar.length > 0) {
       this.fileService.deleteFile(
         candidate.username,
@@ -57,21 +55,15 @@ export default class ProfileService {
         candidate.avatar,
       );
     }
-
     const avatar = this.fileService.createFile(
       candidate.username,
       'avatar',
       file,
     );
-    return this.userRepository.setAvatar(id, avatar);
+    return this.photosRepository.setAvatar(candidate._id, avatar);
   }
 
-  async removeAvatar(id: ObjectId, fileName) {
-    const candidate = await this.userRepository.findById(id);
-    if (!candidate) {
-      return { message: 'Пользователь не найден' };
-    }
-
+  async removeAvatar(candidate: UserDto) {
     if (candidate.avatar.length > 0) {
       this.fileService.deleteFile(
         candidate.username,
@@ -79,41 +71,28 @@ export default class ProfileService {
         candidate.avatar,
       );
     }
-    return fileName;
+    return this.photosRepository.removeAvatar(candidate._id);
   }
 
-  async addPhoto(id: ObjectId, fileName) {
-    const candidate = await this.userRepository.findById(id);
-    if (!candidate) {
-      return { message: 'Пользователь не найден' };
-    }
+  async addPhoto(candidate: UserDto, fileName) {
     const photo = this.fileService.createFile(
       candidate.username,
       'photo',
       fileName,
     );
-    return this.userRepository.addPhoto(id, photo);
+    return this.photosRepository.addPhoto(candidate._id, photo);
   }
 
-  async removePhoto(id: ObjectId, fileName) {
-    const candidate = await this.userRepository.findById(id);
-    if (!candidate) {
-      return { message: 'Пользователь не найден' };
-    }
+  async removePhoto(candidate: UserDto, fileName) {
     const photo = this.fileService.deleteFile(
       candidate.username,
       'photo',
       fileName,
     );
-    return this.userRepository.removePhoto(id, photo);
+    return this.photosRepository.removePhoto(candidate._id, photo);
   }
 
   async setOnline(id: ObjectId, value: boolean) {
-    const candidate = await this.userRepository.findById(id);
-    if (!candidate) {
-      return { message: 'Пользователь не найден' };
-    }
-
     return this.userRepository.setOnline(id, value);
   }
 }
