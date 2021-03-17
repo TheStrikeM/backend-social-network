@@ -87,29 +87,29 @@ export default class UserRepository {
     const recipient = await this.userModel.findById(idRecipient);
 
     type Continues = { start: boolean; message: string[] };
-    const continues: Continues = { start: true, message: [] };
+    const continues: Continues = { start: false, message: [] };
 
     if (!sender) {
-      continues.start = false;
+      continues.start = true;
       continues.message.push('Потенциальный подписчик не найден');
     }
     if (!recipient) {
-      continues.start = false;
+      continues.start = true;
       continues.message.push(
         'Человек на которого нужно подписаться не был найден',
       );
     }
     recipient.subscribers.forEach((sub) => {
       if (String(sub) === String(sender._id)) {
-        continues.start = false;
+        continues.start = true;
         continues.message.push('Вы уже подписаны на этого человека');
       }
     });
     if (sender._id === recipient._id) {
-      continues.start = false;
+      continues.start = true;
       continues.message.push('Вы не можете подписаться сами на себя');
     }
-    if (continues.start) {
+    if (!continues.start) {
       const updSender = await this.userModel.findByIdAndUpdate(
         { _id: sender._id },
         {
