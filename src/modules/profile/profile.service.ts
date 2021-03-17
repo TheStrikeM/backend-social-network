@@ -34,7 +34,7 @@ export default class ProfileService {
     return this.userRepository.unsubscribeTo(idSender, idRecipient);
   }
 
-  async removeAllSubsribers(id: ObjectId) {
+  async removeAllSubscribers(id: ObjectId) {
     return this.userRepository.removeAllSubscribers(id);
   }
 
