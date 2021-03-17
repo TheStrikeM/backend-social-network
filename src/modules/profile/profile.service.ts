@@ -2,12 +2,14 @@ import { Injectable } from '@nestjs/common';
 import FileService from '../file/file.service';
 import UserRepository from '../user/service/user.repository';
 import { ObjectId } from 'mongoose';
+import SubscribeRepository from '../user/service/utils/subscribe.repository';
 
 @Injectable()
 export default class ProfileService {
   constructor(
     private readonly fileService: FileService,
     private readonly userRepository: UserRepository,
+    private readonly subscribeRepository: SubscribeRepository,
   ) {}
 
   async myProfile(id: ObjectId) {
@@ -27,19 +29,19 @@ export default class ProfileService {
   }
 
   async subscribeTo(idSender: ObjectId, idRecipient: ObjectId) {
-    return this.userRepository.subscribeTo(idSender, idRecipient);
+    return this.subscribeRepository.subscribeTo(idSender, idRecipient);
   }
 
   async unsubscribeTo(idSender: ObjectId, idRecipient: ObjectId) {
-    return this.userRepository.unsubscribeTo(idSender, idRecipient);
+    return this.subscribeRepository.unsubscribeTo(idSender, idRecipient);
   }
 
   async removeAllSubscribers(id: ObjectId) {
-    return this.userRepository.removeAllSubscribers(id);
+    return this.subscribeRepository.removeAllSubscribers(id);
   }
 
   async removeAllSubscriptions(id: ObjectId) {
-    return this.userRepository.removeAllSubscriptions(id);
+    return this.subscribeRepository.removeAllSubscriptions(id);
   }
 
   async setAvatar(id: ObjectId, file) {
