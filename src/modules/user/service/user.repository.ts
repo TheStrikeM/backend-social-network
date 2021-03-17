@@ -121,4 +121,8 @@ export default class UserRepository {
 
     return [updSender, updRecipient];
   }
+
+  async setOnline(id: ObjectId, value: boolean) {
+    return this.userModel.findByIdAndUpdate(id, { online: value });
+  }
 }

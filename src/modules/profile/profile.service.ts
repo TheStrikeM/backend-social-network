@@ -61,7 +61,7 @@ export default class ProfileService {
         candidate.avatar,
       );
     }
-    return fileName
+    return fileName;
   }
 
   async addPhoto(id: ObjectId, fileName) {
