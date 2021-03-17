@@ -4,6 +4,8 @@ import { User, UserDocument } from '../../schema/User';
 import { AdvancedRepositoryType } from '../user.repository';
 import { InjectModel } from '@nestjs/mongoose';
 
+type Continues = { start: boolean; message: string[] };
+
 @Injectable()
 export default class SubscribeRepository {
   constructor(
@@ -27,7 +29,6 @@ export default class SubscribeRepository {
     const sender = await this.userModel.findById(idSender);
     const recipient = await this.userModel.findById(idRecipient);
 
-    type Continues = { start: boolean; message: string[] };
     const continues: Continues = { start: false, message: [] };
 
     if (!sender) {
@@ -72,29 +73,50 @@ export default class SubscribeRepository {
   async unsubscribeTo(
     idSender: ObjectId,
     idRecipient: ObjectId,
-  ): Promise<User[] | { message: string }> {
+  ): Promise<
+    AdvancedRepositoryType<User[]> | AdvancedRepositoryType<string[]>
+  > {
     const sender = await this.userModel.findById(idSender);
     const recipient = await this.userModel.findById(idRecipient);
+
+    const continues: Continues = { start: false, message: [] };
+
     if (!sender) {
-      return { message: 'Потенциальный подписчик не найден' };
+      continues.start = true;
+      continues.message.push('Потенциальный подписчик не найден');
     }
     if (!recipient) {
-      return { message: 'Человек на которого нужно подписаться не был найден' };
+      continues.start = true;
+      continues.message.push('Человек от которого нужно отписаться не был найден');
+    }
+    if (sender._id === recipient._id) {
+      continues.start = true;
+      continues.message.push('Вы не можете отписаться сами от себя');
     }
 
-    const updSender = await this.userModel.findByIdAndUpdate(
-      { _id: idSender },
-      {
-        // subscriptions: sender.subscriptions.filter((el) => el !== idRecipient),
-      },
+    const updSubscriptions = sender.subscriptions.filter(
+      (sub) => String(sub) !== String(recipient._id),
     );
-    const updRecipient = await this.userModel.findByIdAndUpdate(
-      { _id: idRecipient },
-      {
-        // subscribers: recipient.subscribers.filter((el) => el !== idSender),
-      },
+    const updSubsribers = recipient.subscribers.filter(
+      (sub) => String(sub) !== String(sender._id),
     );
+    if (!continues.start) {
+      const updSender = await this.userModel.findByIdAndUpdate(
+        { _id: idSender },
+        {
+          subscriptions: updSubscriptions,
+        },
+      );
+      const updRecipient = await this.userModel.findByIdAndUpdate(
+        { _id: idRecipient },
+        {
+          subscribers: updSubsribers,
+        },
+      );
 
-    return [updSender, updRecipient];
+      return { errors: continues.start, message: [updRecipient, updSender] };
+    }
+
+    return { errors: continues.start, message: continues.message };
   }
 }
