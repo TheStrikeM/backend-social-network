@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from '../../schema/User';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 
 @Injectable()
 export default class AdminRepository {
@@ -16,5 +16,9 @@ export default class AdminRepository {
 
   async getAllUsers(limit: number): Promise<User[]> {
     return this.userModel.find().limit(limit);
+  }
+
+  async deleteUser(id: ObjectId): Promise<User> {
+    return this.userModel.findByIdAndDelete({ _id: id });
   }
 }
