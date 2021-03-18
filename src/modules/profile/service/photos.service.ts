@@ -18,11 +18,13 @@ export default class PhotosService {
         candidate.avatar,
       );
     }
+
     const avatar = this.fileService.createFile(
       candidate.username,
       'avatar',
       file,
     );
+    console.log(avatar);
     return this.photosRepository.setAvatar(candidate._id, avatar);
   }
 

@@ -20,13 +20,13 @@ export class PhotosController {
   @Post()
   @UseGuards(JwtGuard)
   @UseInterceptors(FileInterceptor('file'))
-  async setAvatar(@UploadedFile() file, @Request() req) {
+  async setPhoto(@UploadedFile() file, @Request() req) {
     return this.photosService.addPhoto(req.user, file);
   }
 
   @Delete(':fileName')
   @UseGuards(JwtGuard)
-  async removeAvatar(@Request() req, @Param('fileName') fileName: string) {
+  async removePhoto(@Request() req, @Param('fileName') fileName: string) {
     return this.photosService.removePhoto(req.user, fileName);
   }
 }

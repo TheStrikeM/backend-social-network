@@ -7,8 +7,8 @@ import * as fs from 'fs';
 export default class FileService {
   createFile(username, fileType, file): string {
     try {
-      const fileExtension = file.originalname.split('.').pop;
-      const fileName = `${uuid.v4()}.${fileExtension()}`;
+      const fileExtension = file.originalname.split('.').pop();
+      const fileName = `${uuid.v4()}.${fileExtension}`;
       const filePath = path.resolve(
         __dirname,
         '..',
@@ -17,12 +17,13 @@ export default class FileService {
         username,
         fileType,
       );
-      console.log(filePath);
 
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
       }
-      return `${username}/${fileType}/${fileName}`;
+      fs.writeFileSync(path.resolve(filePath, fileName), file.buffer);
+
+      return fileName;
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

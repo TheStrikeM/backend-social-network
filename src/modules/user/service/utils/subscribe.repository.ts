@@ -87,7 +87,9 @@ export default class SubscribeRepository {
     }
     if (!recipient) {
       continues.start = true;
-      continues.message.push('Человек от которого нужно отписаться не был найден');
+      continues.message.push(
+        'Человек от которого нужно отписаться не был найден',
+      );
     }
     if (sender._id === recipient._id) {
       continues.start = true;

@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import FileService from '../../file/file.service';
 import UserRepository from '../../user/service/user.repository';
 import { ObjectId } from 'mongoose';
-import SubscribeRepository from '../../user/service/utils/subscribe.repository';
-import PhotosRepository from '../../user/service/utils/photos.repository';
 import { UserDto } from '../../user/dto/UserDto';
 
 @Injectable()

@@ -3,6 +3,7 @@ import { Model, ObjectId } from 'mongoose';
 import { User, UserDocument } from '../../schema/User';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserOrMessage } from '../user.repository';
+import { UserDto } from '../../dto/UserDto';
 
 @Injectable()
 export default class PhotosRepository {
@@ -11,13 +12,14 @@ export default class PhotosRepository {
   ) {}
 
   async setAvatar(id: ObjectId, fileName: string): Promise<UserOrMessage> {
-    const user: User = await this.userModel.findById(id);
+    const user: UserDto = await this.userModel.findById(id);
     if (!user) {
       return { message: 'Пользователь не найден' };
     }
 
+    console.log(fileName);
     return this.userModel.findByIdAndUpdate(
-      { _id: id },
+      { _id: user._id },
       { avatar: fileName },
     );
   }
@@ -28,10 +30,7 @@ export default class PhotosRepository {
       return { message: 'Пользователь не найден' };
     }
 
-    return this.userModel.findByIdAndUpdate(
-      { _id: id },
-      { avatar: '' },
-    );
+    return this.userModel.findByIdAndUpdate({ _id: id }, { avatar: '' });
   }
 
   async addPhoto(id: ObjectId, fileName: string): Promise<UserOrMessage> {
