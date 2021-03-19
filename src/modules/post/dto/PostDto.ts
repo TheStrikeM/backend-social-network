@@ -22,12 +22,12 @@ export class PostVerifiedDto {
 }
 
 export type PostDto = {
-  readonly _id: ObjectId;
-  readonly authorId: ObjectId[];
-  readonly title: string;
-  readonly photo: string;
-  readonly desc: string;
-  readonly createdId: Date;
-  readonly comments: ObjectId[];
-  readonly reposts: ObjectId[];
+  readonly _id?: ObjectId;
+  readonly authorId?: ObjectId[];
+  readonly title?: string;
+  readonly photo?: string;
+  readonly desc?: string;
+  readonly createdId?: Date;
+  readonly comments?: ObjectId[];
+  readonly reposts?: ObjectId[];
 };
