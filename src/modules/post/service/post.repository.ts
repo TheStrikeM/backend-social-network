@@ -14,15 +14,38 @@ export default class PostRepository {
     return this.postModel.find({ title });
   }
 
-  async create(dto: PostDto) {
+  async create(dto) {
+    const candidate = await this.findByTitle(dto.title);
+    if (candidate) {
+      return { message: 'Пост с таким именем уже существует' };
+    }
+
     return this.postModel.create({ ...dto });
   }
 
   async update(id: ObjectId, dto) {
+    const candidate = await this.findById(id);
+    if (!candidate) {
+      return { message: 'Пост не найден' };
+    }
+
     return this.postModel.findByIdAndUpdate({ _id: id }, { ...dto });
   }
 
-  async delete(id: ObjectId) {
+  async delete(id: ObjectId, authorId: ObjectId) {
+    const candidate: Post = await this.findById(id);
+    if (!candidate) {
+      return { message: 'Пост не найден' };
+    }
+
+    if (String(candidate.authorId) !== String(authorId)) {
+      return { message: 'Вы не являетесь автором данного поста' };
+    }
+
     return this.postModel.findByIdAndDelete({ _id: id });
+  }
+
+  async findById(id: ObjectId) {
+    return this.postModel.findById(id);
   }
 }

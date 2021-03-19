@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { User } from '../../user/schema/User';
 
-export type PostDocument = PopStateEvent & Document;
+export type PostDocument = Post & Document;
 
 @Schema()
 export class Post {

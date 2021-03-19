@@ -11,9 +11,10 @@ import {
   AvatarController,
   PhotosController,
 } from './controller/photos.controller';
+import PostModule from '../post/post.module';
 
 @Module({
-  imports: [FileModule, UserModule, AuthModule],
+  imports: [FileModule, UserModule, AuthModule, PostModule],
   providers: [ProfileService, SubscribeService, PhotosService],
   controllers: [
     ProfileController,

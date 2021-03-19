@@ -1,10 +1,25 @@
 import { Injectable } from '@nestjs/common';
+import { ObjectId } from 'mongoose';
+import { PostDto } from '../../post/dto/PostDto';
+import PostRepository from '../../post/service/post.repository';
 
 @Injectable()
 export default class PostService {
-  constructor() {}
+  constructor(private readonly postRepository: PostRepository) {}
 
-  getSex(): any {
-    return { message: 'Привет!' };
+  async addPost(authorId: ObjectId, dto: PostDto) {
+    return this.postRepository.create({
+      ...dto,
+      authorId,
+      createdIn: new Date(),
+    });
+  }
+
+  async changePost(authorId: ObjectId, postId: ObjectId, dto: PostDto) {
+    return this.postRepository.update(postId, dto);
+  }
+
+  async deletePost(postId: ObjectId, authorId: ObjectId) {
+    return this.postRepository.delete(postId, authorId);
   }
 }
