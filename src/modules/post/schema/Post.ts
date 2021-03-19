@@ -29,4 +29,4 @@ export class Post {
   reposts: string[];
 }
 
-export const PopStateEventSchema = SchemaFactory.createForClass(Post);
+export const PostSchema = SchemaFactory.createForClass(Post);
