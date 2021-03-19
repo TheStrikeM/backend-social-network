@@ -12,15 +12,18 @@ import {
   PhotosController,
 } from './controller/photos.controller';
 import PostModule from '../post/post.module';
+import PostController from './controller/post.controller';
+import PostService from './service/post.service';
 
 @Module({
   imports: [FileModule, UserModule, AuthModule, PostModule],
-  providers: [ProfileService, SubscribeService, PhotosService],
+  providers: [ProfileService, SubscribeService, PhotosService, PostService],
   controllers: [
     ProfileController,
     SubscribeController,
     PhotosController,
     AvatarController,
+    PostController,
   ],
 })
 export default class ProfileModule {}
