@@ -7,9 +7,9 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import PostService from '../service/post.service';
-import JwtGuard from '../../auth/guard/jwt.guard';
-import { PostDto, PostVerifiedDto } from '../../post/dto/PostDto';
+import PostService from '../../service/post/post.service';
+import JwtGuard from '../../../auth/guard/jwt.guard';
+import { PostDto, PostVerifiedDto } from '../../../post/dto/PostDto';
 import { ObjectId } from 'mongoose';
 
 @Controller('post')

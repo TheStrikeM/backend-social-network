@@ -12,8 +12,8 @@ import {
   PhotosController,
 } from './controller/photos.controller';
 import PostModule from '../post/post.module';
-import PostController from './controller/post.controller';
-import PostService from './service/post.service';
+import PostController from './controller/post/post.controller';
+import PostService from './service/post/post.service';
 
 @Module({
   imports: [FileModule, UserModule, AuthModule, PostModule],

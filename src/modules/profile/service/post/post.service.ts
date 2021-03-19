@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
-import { PostDto } from '../../post/dto/PostDto';
-import PostRepository from '../../post/service/post.repository';
+import { PostDto } from '../../../post/dto/PostDto';
+import PostRepository from '../../../post/service/post.repository';
 
 @Injectable()
 export default class PostService {

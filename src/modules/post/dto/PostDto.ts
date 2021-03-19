@@ -3,20 +3,20 @@ import { MaxLength, MinLength } from 'class-validator';
 
 export class PostVerifiedDto {
   @MinLength(5, {
-    message: 'Ваш юзернейм должен состоять из не менее 5 символов',
+    message: 'Название поста должно состоять из не менее 5 символов',
   })
-  @MaxLength(35, {
-    message: 'Ваш юзернейм должен состоять из не менее 35 символов',
+  @MaxLength(65, {
+    message: 'Название поста должно состоять из не менее 65 символов',
   })
   title: string;
 
   photo?: string;
 
   @MinLength(5, {
-    message: 'Ваш юзернейм должен состоять из не менее 5 символов',
+    message: 'Описание поста должно состоять из не менее 5 символов',
   })
-  @MaxLength(35, {
-    message: 'Ваш юзернейм должен состоять из не менее 35 символов',
+  @MaxLength(335, {
+    message: 'Описание поста должно состоять из не менее 335 символов',
   })
   desc: string;
 }

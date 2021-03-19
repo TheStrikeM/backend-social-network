@@ -10,16 +10,7 @@ export default class PostRepository {
     @InjectModel(Post.name) private readonly postModel: Model<PostDocument>,
   ) {}
 
-  async findByTitle(title: string) {
-    return this.postModel.find({ title });
-  }
-
   async create(dto) {
-    const candidate = await this.findByTitle(dto.title);
-    if (candidate) {
-      return { message: 'Пост с таким именем уже существует' };
-    }
-
     return this.postModel.create({ ...dto });
   }
 
