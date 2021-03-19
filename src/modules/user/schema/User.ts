@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import { Role } from '../dto/UserDto';
+import {Post} from "../../post/schema/Post";
 
 export type UserDocument = User & Document;
 
@@ -61,8 +62,8 @@ export class User {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
   subscriptions: User[];
 
-  @Prop()
-  posts: string[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }] })
+  posts: Post[];
 
   @Prop()
   reposts: string[];

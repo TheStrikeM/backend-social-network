@@ -13,12 +13,7 @@ export class Post {
   @Prop({ type: String, min: 5, max: 25, required: true, unique: true })
   title: string;
 
-  @Prop({
-    type: String,
-    min: 5,
-    max: 25,
-    default: 'Описания нет',
-  })
+  @Prop({ type: String, min: 5, max: 25, required: true })
   desc: string;
 
   @Prop({ type: String, default: '' })

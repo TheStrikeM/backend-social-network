@@ -10,19 +10,19 @@ export default class PostRepository {
     @InjectModel(Post.name) private readonly postModel: Model<PostDocument>,
   ) {}
 
-  async findByTitle(title: string): Promise<Post> {
+  async findByTitle(title: string) {
     return this.postModel.find({ title });
   }
 
-  async create(dto: PostDto): Promise<Post> {
+  async create(dto: PostDto) {
     return this.postModel.create({ ...dto });
   }
 
-  async update(id: ObjectId, dto): Promise<Post> {
+  async update(id: ObjectId, dto) {
     return this.postModel.findByIdAndUpdate({ _id: id }, { ...dto });
   }
 
-  async delete(id: ObjectId): Promise<Post> {
+  async delete(id: ObjectId) {
     return this.postModel.findByIdAndDelete({ _id: id });
   }
 }
