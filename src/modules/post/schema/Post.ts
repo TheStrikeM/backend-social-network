@@ -10,10 +10,15 @@ export class Post {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   authorId: User;
 
-  @Prop({ type: String, min: 5, max: 25, required: true })
+  @Prop({ type: String, min: 5, max: 25, required: true, unique: true })
   title: string;
 
-  @Prop({ type: String, min: 5, max: 25, required: true })
+  @Prop({
+    type: String,
+    min: 5,
+    max: 25,
+    default: 'Описания нет',
+  })
   desc: string;
 
   @Prop({ type: String, default: '' })
