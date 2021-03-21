@@ -15,16 +15,29 @@ import PostModule from '../post/post.module';
 import PostController from './controller/post/post.controller';
 import PostService from './service/post/post.service';
 import CommentModule from '../comment/comment.module';
+import UserCommentController from './controller/user-comment.controller';
+import PostCommentController from './controller/post/post-comment.controller';
+import UserCommentService from './service/user-comment.service';
+import PostCommentService from './service/post/post-comment.service';
 
 @Module({
   imports: [FileModule, UserModule, AuthModule, PostModule, CommentModule],
-  providers: [ProfileService, SubscribeService, PhotosService, PostService],
+  providers: [
+    ProfileService,
+    SubscribeService,
+    PhotosService,
+    PostService,
+    UserCommentService,
+    PostCommentService,
+  ],
   controllers: [
     ProfileController,
     SubscribeController,
     PhotosController,
     AvatarController,
     PostController,
+    UserCommentController,
+    PostCommentController,
   ],
 })
 export default class ProfileModule {}
