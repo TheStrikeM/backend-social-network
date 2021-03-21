@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PostComment, PostCommentSchema } from './schema/PostComment';
 import { UserComment, UserCommentSchema } from './schema/UserComment';
+import UserCommentRepository from './service/user/user-comment.repository';
+import PostCommentRepository from './service/post/post-comment.repository';
 
 @Module({
   imports: [
@@ -12,6 +14,7 @@ import { UserComment, UserCommentSchema } from './schema/UserComment';
       { name: UserComment.name, schema: UserCommentSchema },
     ]),
   ],
-  providers: [],
+  providers: [UserCommentRepository, PostCommentRepository],
+  exports: [UserCommentRepository, PostCommentRepository],
 })
 export default class CommentModule {}

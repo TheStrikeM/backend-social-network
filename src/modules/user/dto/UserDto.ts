@@ -8,11 +8,6 @@ export enum Role {
   MEDIA = 'MEDIA',
 }
 
-export const AdminRole = [Role.USER, Role.MANAGER, Role.MEDIA, Role.ADMIN];
-export const UserRole = [Role.USER];
-export const ManagerRole = [Role.USER, Role.MANAGER, Role.MEDIA];
-export const MediaRole = [Role.USER, Role.MEDIA];
-
 export type UserLoginDto = {
   username: string;
   password: string;

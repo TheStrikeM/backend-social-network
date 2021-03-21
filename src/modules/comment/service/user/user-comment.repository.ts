@@ -5,7 +5,7 @@ import { PostCommentVerifiedDto } from '../../dto/PostCommentDto';
 import { UserComment, UserCommentDocument } from '../../schema/UserComment';
 
 @Injectable()
-export default class PostCommentRepository {
+export default class UserCommentRepository {
   constructor(
     @InjectModel(UserComment.name)
     private readonly userCommentModel: Model<UserCommentDocument>,
@@ -32,7 +32,7 @@ export default class PostCommentRepository {
 
     return this.userCommentModel.findByIdAndUpdate(
       { _id: id },
-      { ...dto, updatedIn: new Date() },
+      { ...dto, updatedIn: new Date(), redact: true },
     );
   }
 

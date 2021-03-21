@@ -4,7 +4,7 @@ import { User, UserDocument } from '../../schema/User';
 import { AdvancedRepositoryType } from '../user.repository';
 import { InjectModel } from '@nestjs/mongoose';
 
-type Continues = { start: boolean; message: string[] };
+export type Continues = { start: boolean; message: string[] };
 
 @Injectable()
 export default class SubscribeRepository {

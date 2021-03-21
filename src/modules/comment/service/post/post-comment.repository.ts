@@ -32,7 +32,7 @@ export default class PostCommentRepository {
 
     return this.postCommentModel.findByIdAndUpdate(
       { _id: id },
-      { ...dto, updatedIn: new Date() },
+      { ...dto, updatedIn: new Date(), redact: true },
     );
   }
 

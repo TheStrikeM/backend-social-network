@@ -2,7 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
 import { Role } from '../dto/UserDto';
-import {Post} from "../../post/schema/Post";
+import { Post } from '../../post/schema/Post';
+import { UserComment } from '../../comment/schema/UserComment';
 
 export type UserDocument = User & Document;
 
@@ -65,11 +66,13 @@ export class User {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }] })
   posts: Post[];
 
-  @Prop()
-  reposts: string[];
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }] })
+  reposts: Post[];
 
-  @Prop()
-  comments: string[];
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserComment' }],
+  })
+  comments: UserComment[];
 
   @Prop()
   postComments: string[];
