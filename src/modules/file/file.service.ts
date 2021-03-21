@@ -40,10 +40,8 @@ export default class FileService {
         fileType,
         fileName,
       );
+      fs.unlinkSync(filePath);
 
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-      }
       return `${username}/${fileType}/${fileName}`;
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);

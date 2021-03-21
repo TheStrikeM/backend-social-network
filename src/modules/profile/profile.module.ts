@@ -14,9 +14,10 @@ import {
 import PostModule from '../post/post.module';
 import PostController from './controller/post/post.controller';
 import PostService from './service/post/post.service';
+import CommentModule from '../comment/comment.module';
 
 @Module({
-  imports: [FileModule, UserModule, AuthModule, PostModule],
+  imports: [FileModule, UserModule, AuthModule, PostModule, CommentModule],
   providers: [ProfileService, SubscribeService, PhotosService, PostService],
   controllers: [
     ProfileController,
