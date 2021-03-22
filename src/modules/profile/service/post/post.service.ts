@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 import { PostDto } from '../../../post/dto/PostDto';
 import PostRepository from '../../../post/service/post.repository';
+import { Post } from '../../../post/schema/Post';
 
 @Injectable()
 export default class PostService {
@@ -13,6 +14,10 @@ export default class PostService {
       authorId,
       createdIn: new Date(),
     });
+  }
+
+  async findById(postId: ObjectId): Promise<Post> {
+    return this.postRepository.findById(postId);
   }
 
   async changePost(authorId: ObjectId, postId: ObjectId, dto: PostDto) {

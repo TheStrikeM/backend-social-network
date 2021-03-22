@@ -29,7 +29,7 @@ export default class UserCommentController {
     @Body() dto: UserCommentVerifiedDto,
     @Request() req,
   ) {
-    return this.userCommentService.addCommentToPost(req.user_id, userId, dto);
+    return this.userCommentService.addCommentToPost(userId, req.user._id, dto);
   }
 
   @Put(':commentId')

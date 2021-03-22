@@ -22,6 +22,11 @@ export default class PostController {
     return this.postService.addPost(req.user._id, dto);
   }
 
+  @Get(':id')
+  async findById(@Param('id') id: ObjectId) {
+    return this.postService.findById(id);
+  }
+
   @Get('delete/:id')
   @UseGuards(JwtGuard)
   async deletePost(@Request() req, @Param('id') postId: ObjectId) {

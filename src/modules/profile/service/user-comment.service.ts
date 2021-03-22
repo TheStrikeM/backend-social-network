@@ -9,10 +9,10 @@ export default class UserCommentService {
 
   async addCommentToPost(
     userId: ObjectId,
-    postId: ObjectId,
+    authorId: ObjectId,
     comment: UserCommentVerifiedDto,
   ) {
-    return this.userCommentRepository.create(userId, postId, comment);
+    return this.userCommentRepository.create(userId, authorId, comment);
   }
 
   async updateComment(commentId: ObjectId, authorId: ObjectId, comment) {

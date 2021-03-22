@@ -14,7 +14,7 @@ export default class PostRepository {
     return this.postModel.create({ ...dto });
   }
 
-  async update(id: ObjectId, dto) {
+  async update(id: ObjectId | Post, dto) {
     const candidate = await this.findById(id);
     if (!candidate) {
       return { message: 'Пост не найден' };
@@ -36,7 +36,9 @@ export default class PostRepository {
     return this.postModel.findByIdAndDelete({ _id: id });
   }
 
-  async findById(id: ObjectId) {
-    return this.postModel.findById(id);
+  async findById(id: ObjectId | Post) {
+    const candidate = await this.postModel.findById(id);
+    console.log(candidate);
+    return candidate;
   }
 }

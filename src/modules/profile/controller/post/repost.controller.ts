@@ -1,4 +1,4 @@
-import { Controller, Request, Post, Body, UseGuards } from '@nestjs/common';
+import {Controller, Request, UseGuards, Param, Get} from '@nestjs/common';
 import RepostsService from '../../service/post/reposts.service';
 import { ObjectId } from 'mongoose';
 import JwtGuard from '../../../auth/guard/jwt.guard';
@@ -11,9 +11,9 @@ export type RepostDto = {
 export default class RepostController {
   constructor(private readonly repostService: RepostsService) {}
 
-  @Post()
+  @Get(':postId')
   @UseGuards(JwtGuard)
-  async addRepost(@Request() req, @Body() dto: RepostDto) {
-    return this.repostService.repost(req.user._id, dto.postId);
+  async addRepost(@Request() req, @Param('postId') postId: ObjectId) {
+    return this.repostService.repost(req.user._id, postId);
   }
 }

@@ -21,15 +21,17 @@ export default class UserRepository {
     return this.userModel.findOne({ username });
   }
 
-  async findById(id: ObjectId): Promise<User> {
-    return this.userModel.findById(id);
+  async findById(id: ObjectId | User) {
+    const candidate = await this.userModel.findById(id);
+    console.log(candidate);
+    return candidate;
   }
 
   async create(dto: UserDto): Promise<User> {
     return this.userModel.create({ ...dto });
   }
 
-  async update(id: ObjectId, updatedValue: any): Promise<User> {
+  async update(id: ObjectId | User, updatedValue: any): Promise<User> {
     return this.userModel.findByIdAndUpdate({ _id: id }, updatedValue);
   }
 
