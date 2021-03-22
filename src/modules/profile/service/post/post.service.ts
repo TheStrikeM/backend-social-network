@@ -9,11 +9,14 @@ export default class PostService {
   constructor(private readonly postRepository: PostRepository) {}
 
   async addPost(authorId: ObjectId, dto: PostDto) {
-    return this.postRepository.create({
-      ...dto,
+    return this.postRepository.create(
+      {
+        ...dto,
+        authorId,
+        createdIn: new Date(),
+      },
       authorId,
-      createdIn: new Date(),
-    });
+    );
   }
 
   async findById(postId: ObjectId): Promise<Post> {

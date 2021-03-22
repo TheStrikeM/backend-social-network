@@ -14,13 +14,9 @@ export default class RepostsRepository {
     private readonly postRepository: PostRepository,
   ) {}
 
-  async repost(postId: ObjectId, userId: ObjectId) {
+  async repost(userId: ObjectId, postId: ObjectId) {
     try {
       const continues: Continues = { start: false, message: [] };
-
-      console.log(postId);
-      console.log(userId);
-
       const postCandidate: PostDocument = await this.postRepository.findById(
         postId,
       );
@@ -63,7 +59,7 @@ export default class RepostsRepository {
           reposts: [...userCandidate.reposts, userCandidate._id],
         });
 
-        return { errors: continues.start, message: [updUser, updPost] };
+        return { errors: continues.start, message: 'Репост успешно совершен!' };
       }
 
       return { errors: continues.start, message: continues.message };

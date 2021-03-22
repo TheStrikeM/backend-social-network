@@ -1,4 +1,4 @@
-import {Controller, Request, UseGuards, Param, Get} from '@nestjs/common';
+import { Controller, Request, UseGuards, Param, Get } from '@nestjs/common';
 import RepostsService from '../../service/post/reposts.service';
 import { ObjectId } from 'mongoose';
 import JwtGuard from '../../../auth/guard/jwt.guard';
@@ -14,6 +14,7 @@ export default class RepostController {
   @Get(':postId')
   @UseGuards(JwtGuard)
   async addRepost(@Request() req, @Param('postId') postId: ObjectId) {
+    console.log('Controller', postId, req.user._id);
     return this.repostService.repost(req.user._id, postId);
   }
 }

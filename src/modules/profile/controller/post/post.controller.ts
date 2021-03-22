@@ -1,9 +1,9 @@
 import {
   Body,
-  Controller,
+  Controller, Delete,
   Get,
   Param,
-  Post,
+  Post, Put,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -16,7 +16,7 @@ import { ObjectId } from 'mongoose';
 export default class PostController {
   constructor(private readonly postService: PostService) {}
 
-  @Post('create')
+  @Post()
   @UseGuards(JwtGuard)
   async createPost(@Body() dto: PostVerifiedDto, @Request() req) {
     return this.postService.addPost(req.user._id, dto);
@@ -27,13 +27,13 @@ export default class PostController {
     return this.postService.findById(id);
   }
 
-  @Get('delete/:id')
+  @Delete(':id')
   @UseGuards(JwtGuard)
   async deletePost(@Request() req, @Param('id') postId: ObjectId) {
     return this.postService.deletePost(postId, req.user._id);
   }
 
-  @Post('update/:id')
+  @Put(':id')
   @UseGuards(JwtGuard)
   async changePost(
     @Request() req,
