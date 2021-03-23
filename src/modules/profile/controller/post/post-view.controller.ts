@@ -15,6 +15,7 @@ export default class PostViewController {
   @Get('sub')
   @UseGuards(JwtGuard)
   async getSubPosts(@Request() req) {
+    console.log(req.user)
     return this.postViewService.getSubPosts(req.user.subscriptions);
   }
 }

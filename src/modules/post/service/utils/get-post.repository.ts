@@ -16,7 +16,7 @@ export default class GetPostRepository {
       .populate('authorId')
       .populate('comments')
       .populate('reposts')
-      .sort('-createdAt');
+      .sort('-createdIn');
   }
 
   async getSubPosts(subscribtions: UserDocument[]): Promise<PostDocument[]> {
@@ -25,6 +25,6 @@ export default class GetPostRepository {
       .populate('authorId')
       .populate('comments')
       .populate('reposts')
-      .sort('-createdAt');
+      .sort('-createdIn');
   }
 }

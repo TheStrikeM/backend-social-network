@@ -21,6 +21,13 @@ export default class ProfileController {
     return this.profileService.myProfile(req.user._id);
   }
 
+  @Get('set')
+  @UseGuards(JwtGuard)
+  async setUpdatedDataToReq(@Request() req) {
+    const ya = await this.profileService.findById(req.user._id);
+    req.user = ya;
+  }
+
   @Get(':username')
   async getProfile(@Param('username') username: string) {
     return this.profileService.getProfile(username);

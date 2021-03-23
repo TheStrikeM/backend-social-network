@@ -34,4 +34,8 @@ export default class ProfileService {
   async update(id: ObjectId, dto: UserDto) {
     return this.userRepository.update(id, dto);
   }
+
+  async findById(id: ObjectId) {
+    return this.userRepository.findById(id);
+  }
 }
