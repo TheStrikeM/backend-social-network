@@ -21,6 +21,8 @@ import UserCommentService from './service/user-comment.service';
 import PostCommentService from './service/post/post-comment.service';
 import RepostsService from './service/post/reposts.service';
 import RepostController from './controller/post/repost.controller';
+import PostViewService from './service/post/post-view.service';
+import PostViewController from './controller/post/post-view.controller';
 
 @Module({
   imports: [FileModule, UserModule, AuthModule, PostModule, CommentModule],
@@ -32,6 +34,7 @@ import RepostController from './controller/post/repost.controller';
     UserCommentService,
     PostCommentService,
     RepostsService,
+    PostViewService,
   ],
   controllers: [
     ProfileController,
@@ -42,6 +45,7 @@ import RepostController from './controller/post/repost.controller';
     UserCommentController,
     PostCommentController,
     RepostController,
+    PostViewController,
   ],
 })
 export default class ProfileModule {}
